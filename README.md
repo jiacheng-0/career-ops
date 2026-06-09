@@ -91,11 +91,11 @@ Built by someone who used it to evaluate 740+ job offers, generate 100+ tailored
 ```bash
 # 1. Clone and install
 git clone https://github.com/santifer/career-ops.git
-cd career-ops && npm install
-npx playwright install chromium   # Required for PDF generation
+cd career-ops && pnpm install
+pnpm dlx playwright install chromium   # Required for PDF generation
 
 # 2. Check setup
-npm run doctor                     # Validates all prerequisites
+pnpm run doctor                        # Validates all prerequisites
 
 # 3. Configure
 cp config/profile.example.yml config/profile.yml  # Edit with your details
@@ -129,8 +129,8 @@ Career-ops supports [Gemini CLI](https://github.com/google-gemini/gemini-cli) na
 
 ```bash
 # 1. Install Gemini CLI
-npm install -g @google/gemini-cli
-# or: npx @google/gemini-cli --version
+pnpm add -g @google/gemini-cli
+# or: pnpm dlx @google/gemini-cli --version
 
 # 2. Authenticate (free, uses your Google account)
 gemini auth
@@ -157,12 +157,12 @@ cp .env.example .env
 # Edit .env, set GEMINI_API_KEY=your_key_here
 
 # 2. Install dependencies
-npm install
+pnpm install
 
 # 3. Evaluate a job description
 node gemini-eval.mjs "We are looking for a Senior AI Engineer..."
 node gemini-eval.mjs --file ./jds/my-job.txt
-npm run gemini:eval -- "JD text here"
+pnpm run gemini:eval -- "JD text here"
 ```
 
 > **Free tier:** Both options work without billing. Native CLI uses Google OAuth; the API script uses `gemini-2.5-flash` (15 RPM, 1M tokens/day free).
@@ -225,7 +225,7 @@ The scanner comes with **45+ companies** ready to scan and **19 search queries**
 
 **Job boards searched:** Ashby, Greenhouse, Lever, Wellfound, Workable, RemoteFront
 
-By default `node scan.mjs` (a.k.a. `npm run scan`) trusts what each ATS feed returns. Some companies leave stale postings in their public API even after the role is closed, so those expired entries can leak into `pipeline.md`. Pass `--verify` to launch Playwright after the API pass and drop expired postings before they hit the pipeline:
+By default `node scan.mjs` (a.k.a. `pnpm run scan`) trusts what each ATS feed returns. Some companies leave stale postings in their public API even after the role is closed, so those expired entries can leak into `pipeline.md`. Pass `--verify` to launch Playwright after the API pass and drop expired postings before they hit the pipeline:
 
 ```bash
 node scan.mjs --verify          # zero-token discovery + Playwright liveness check
